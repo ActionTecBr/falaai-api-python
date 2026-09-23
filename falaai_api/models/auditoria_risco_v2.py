@@ -4,7 +4,6 @@ from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
-from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
     from ..models.auditoria_risco_analysis_v2 import AuditoriaRiscoAnalysisV2
@@ -28,7 +27,7 @@ T = TypeVar("T", bound="AuditoriaRiscoV2")
 
 @_attrs_define
 class AuditoriaRiscoV2:
-    """Response V2 (build_public_response_v2) — blocos logicos EN-US. Fonte: response_builder.py.
+    """Response V2 (build_public_response_v2) â€” blocos logicos EN-US. Fonte: response_builder.py.
 
     Attributes:
         meta (AuditoriaRiscoMetaV2):
@@ -63,7 +62,6 @@ class AuditoriaRiscoV2:
     audit_decisions: AuditoriaRiscoAuditDecisionsV2
     scoring_explanation: AuditoriaRiscoScoringExplanationV2
     html_report: str
-    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         meta = self.meta.to_dict()
@@ -97,7 +95,7 @@ class AuditoriaRiscoV2:
         html_report = self.html_report
 
         field_dict: dict[str, Any] = {}
-        field_dict.update(self.additional_properties)
+
         field_dict.update(
             {
                 "meta": meta,
@@ -186,21 +184,4 @@ class AuditoriaRiscoV2:
             html_report=html_report,
         )
 
-        auditoria_risco_v2.additional_properties = d
         return auditoria_risco_v2
-
-    @property
-    def additional_keys(self) -> list[str]:
-        return list(self.additional_properties.keys())
-
-    def __getitem__(self, key: str) -> Any:
-        return self.additional_properties[key]
-
-    def __setitem__(self, key: str, value: Any) -> None:
-        self.additional_properties[key] = value
-
-    def __delitem__(self, key: str) -> None:
-        del self.additional_properties[key]
-
-    def __contains__(self, key: str) -> bool:
-        return key in self.additional_properties

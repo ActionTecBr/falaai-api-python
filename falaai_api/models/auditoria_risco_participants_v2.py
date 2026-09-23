@@ -4,7 +4,6 @@ from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
-from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
@@ -31,7 +30,6 @@ class AuditoriaRiscoParticipantsV2:
     role_inference_reliable: bool | Unset = True
     identification_status: str | Unset = "none"
     unidentified_items_count: int | Unset = 0
-    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         identified: list[dict[str, Any]] | Unset = UNSET
@@ -54,7 +52,7 @@ class AuditoriaRiscoParticipantsV2:
         unidentified_items_count = self.unidentified_items_count
 
         field_dict: dict[str, Any] = {}
-        field_dict.update(self.additional_properties)
+
         field_dict.update({})
         if identified is not UNSET:
             field_dict["identified"] = identified
@@ -106,21 +104,4 @@ class AuditoriaRiscoParticipantsV2:
             unidentified_items_count=unidentified_items_count,
         )
 
-        auditoria_risco_participants_v2.additional_properties = d
         return auditoria_risco_participants_v2
-
-    @property
-    def additional_keys(self) -> list[str]:
-        return list(self.additional_properties.keys())
-
-    def __getitem__(self, key: str) -> Any:
-        return self.additional_properties[key]
-
-    def __setitem__(self, key: str, value: Any) -> None:
-        self.additional_properties[key] = value
-
-    def __delitem__(self, key: str) -> None:
-        del self.additional_properties[key]
-
-    def __contains__(self, key: str) -> bool:
-        return key in self.additional_properties

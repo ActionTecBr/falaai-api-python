@@ -4,7 +4,6 @@ from collections.abc import Mapping
 from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
-from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
@@ -39,7 +38,6 @@ class AuditoriaRiscoConversationScoresV2:
     global_risk_severity_color: None | str | Unset = UNSET
     risk_likelihood_avg: float | None | Unset = UNSET
     risk_impact_avg: float | None | Unset = UNSET
-    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         consolidated_score: float | None | Unset
@@ -109,7 +107,7 @@ class AuditoriaRiscoConversationScoresV2:
             risk_impact_avg = self.risk_impact_avg
 
         field_dict: dict[str, Any] = {}
-        field_dict.update(self.additional_properties)
+
         field_dict.update({})
         if consolidated_score is not UNSET:
             field_dict["consolidated_score"] = consolidated_score
@@ -253,21 +251,4 @@ class AuditoriaRiscoConversationScoresV2:
             risk_impact_avg=risk_impact_avg,
         )
 
-        auditoria_risco_conversation_scores_v2.additional_properties = d
         return auditoria_risco_conversation_scores_v2
-
-    @property
-    def additional_keys(self) -> list[str]:
-        return list(self.additional_properties.keys())
-
-    def __getitem__(self, key: str) -> Any:
-        return self.additional_properties[key]
-
-    def __setitem__(self, key: str, value: Any) -> None:
-        self.additional_properties[key] = value
-
-    def __delitem__(self, key: str) -> None:
-        del self.additional_properties[key]
-
-    def __contains__(self, key: str) -> bool:
-        return key in self.additional_properties

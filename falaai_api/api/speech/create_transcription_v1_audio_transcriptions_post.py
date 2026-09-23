@@ -86,7 +86,7 @@ def sync_detailed(
     import httpx
 
     response = httpx.post(
-        'https://api.fala.ai/v1/audio/transcriptions',
+        'https://api01-falaai.action.tec.br/v1/audio/transcriptions',
         headers={'Authorization': 'Bearer fai_xxx'},
         files={'file': open('call.mp3', 'rb')},
         data={'model': 'falaai-transcribe-1', 'language': 'pt'}
@@ -96,7 +96,7 @@ def sync_detailed(
 
     **cURL:**
     ```bash
-    curl https://api.fala.ai/v1/audio/transcriptions \\
+    curl https://api01-falaai.action.tec.br/v1/audio/transcriptions \\
       -H 'Authorization: Bearer fai_xxx' \\
       -F 'file=@call.mp3' \\
       -F 'model=falaai-transcribe-1' \\
@@ -149,7 +149,7 @@ def sync(
     import httpx
 
     response = httpx.post(
-        'https://api.fala.ai/v1/audio/transcriptions',
+        'https://api01-falaai.action.tec.br/v1/audio/transcriptions',
         headers={'Authorization': 'Bearer fai_xxx'},
         files={'file': open('call.mp3', 'rb')},
         data={'model': 'falaai-transcribe-1', 'language': 'pt'}
@@ -159,7 +159,7 @@ def sync(
 
     **cURL:**
     ```bash
-    curl https://api.fala.ai/v1/audio/transcriptions \\
+    curl https://api01-falaai.action.tec.br/v1/audio/transcriptions \\
       -H 'Authorization: Bearer fai_xxx' \\
       -F 'file=@call.mp3' \\
       -F 'model=falaai-transcribe-1' \\
@@ -207,7 +207,7 @@ async def asyncio_detailed(
     import httpx
 
     response = httpx.post(
-        'https://api.fala.ai/v1/audio/transcriptions',
+        'https://api01-falaai.action.tec.br/v1/audio/transcriptions',
         headers={'Authorization': 'Bearer fai_xxx'},
         files={'file': open('call.mp3', 'rb')},
         data={'model': 'falaai-transcribe-1', 'language': 'pt'}
@@ -217,7 +217,7 @@ async def asyncio_detailed(
 
     **cURL:**
     ```bash
-    curl https://api.fala.ai/v1/audio/transcriptions \\
+    curl https://api01-falaai.action.tec.br/v1/audio/transcriptions \\
       -H 'Authorization: Bearer fai_xxx' \\
       -F 'file=@call.mp3' \\
       -F 'model=falaai-transcribe-1' \\
@@ -268,7 +268,7 @@ async def asyncio(
     import httpx
 
     response = httpx.post(
-        'https://api.fala.ai/v1/audio/transcriptions',
+        'https://api01-falaai.action.tec.br/v1/audio/transcriptions',
         headers={'Authorization': 'Bearer fai_xxx'},
         files={'file': open('call.mp3', 'rb')},
         data={'model': 'falaai-transcribe-1', 'language': 'pt'}
@@ -278,7 +278,7 @@ async def asyncio(
 
     **cURL:**
     ```bash
-    curl https://api.fala.ai/v1/audio/transcriptions \\
+    curl https://api01-falaai.action.tec.br/v1/audio/transcriptions \\
       -H 'Authorization: Bearer fai_xxx' \\
       -F 'file=@call.mp3' \\
       -F 'model=falaai-transcribe-1' \\

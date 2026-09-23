@@ -65,7 +65,7 @@ def sync_detailed(
     client: AuthenticatedClient | Client,
     body: AuditoriaRiscoRequest,
 ) -> Response[AuditoriaRiscoV2Response | HTTPValidationError]:
-    """ Compliance Risk Audit — conversation compliance analysis
+    """ Compliance Risk Audit â€” conversation compliance analysis
 
      Analyzes a call transcript for compliance risks. Returns a score (0-100), classification level,
     violations, positives, and a detailed HTML report.
@@ -75,7 +75,7 @@ def sync_detailed(
     import httpx
 
     response = httpx.post(
-        'https://api.fala.ai/v1/analyze/auditoriaRisco',
+        'https://api01-falaai.action.tec.br/v1/analyze/auditoriaRisco',
         headers={'Authorization': 'Bearer fai_xxx'},
         json={
             'dialog': 'Speaker 1: [00:00:00.540 - 00:00:01.139] Hi, Alex.',
@@ -89,7 +89,7 @@ def sync_detailed(
 
     **cURL:**
     ```bash
-    curl https://api.fala.ai/v1/analyze/auditoriaRisco \\
+    curl https://api01-falaai.action.tec.br/v1/analyze/auditoriaRisco \\
       -H 'Authorization: Bearer fai_xxx' \\
       -H 'Content-Type: application/json' \\
       -d '{
@@ -127,7 +127,7 @@ def sync(
     client: AuthenticatedClient | Client,
     body: AuditoriaRiscoRequest,
 ) -> AuditoriaRiscoV2Response | HTTPValidationError | None:
-    """ Compliance Risk Audit — conversation compliance analysis
+    """ Compliance Risk Audit â€” conversation compliance analysis
 
      Analyzes a call transcript for compliance risks. Returns a score (0-100), classification level,
     violations, positives, and a detailed HTML report.
@@ -137,7 +137,7 @@ def sync(
     import httpx
 
     response = httpx.post(
-        'https://api.fala.ai/v1/analyze/auditoriaRisco',
+        'https://api01-falaai.action.tec.br/v1/analyze/auditoriaRisco',
         headers={'Authorization': 'Bearer fai_xxx'},
         json={
             'dialog': 'Speaker 1: [00:00:00.540 - 00:00:01.139] Hi, Alex.',
@@ -151,7 +151,7 @@ def sync(
 
     **cURL:**
     ```bash
-    curl https://api.fala.ai/v1/analyze/auditoriaRisco \\
+    curl https://api01-falaai.action.tec.br/v1/analyze/auditoriaRisco \\
       -H 'Authorization: Bearer fai_xxx' \\
       -H 'Content-Type: application/json' \\
       -d '{
@@ -184,7 +184,7 @@ async def asyncio_detailed(
     client: AuthenticatedClient | Client,
     body: AuditoriaRiscoRequest,
 ) -> Response[AuditoriaRiscoV2Response | HTTPValidationError]:
-    """ Compliance Risk Audit — conversation compliance analysis
+    """ Compliance Risk Audit â€” conversation compliance analysis
 
      Analyzes a call transcript for compliance risks. Returns a score (0-100), classification level,
     violations, positives, and a detailed HTML report.
@@ -194,7 +194,7 @@ async def asyncio_detailed(
     import httpx
 
     response = httpx.post(
-        'https://api.fala.ai/v1/analyze/auditoriaRisco',
+        'https://api01-falaai.action.tec.br/v1/analyze/auditoriaRisco',
         headers={'Authorization': 'Bearer fai_xxx'},
         json={
             'dialog': 'Speaker 1: [00:00:00.540 - 00:00:01.139] Hi, Alex.',
@@ -208,7 +208,7 @@ async def asyncio_detailed(
 
     **cURL:**
     ```bash
-    curl https://api.fala.ai/v1/analyze/auditoriaRisco \\
+    curl https://api01-falaai.action.tec.br/v1/analyze/auditoriaRisco \\
       -H 'Authorization: Bearer fai_xxx' \\
       -H 'Content-Type: application/json' \\
       -d '{
@@ -244,7 +244,7 @@ async def asyncio(
     client: AuthenticatedClient | Client,
     body: AuditoriaRiscoRequest,
 ) -> AuditoriaRiscoV2Response | HTTPValidationError | None:
-    """ Compliance Risk Audit — conversation compliance analysis
+    """ Compliance Risk Audit â€” conversation compliance analysis
 
      Analyzes a call transcript for compliance risks. Returns a score (0-100), classification level,
     violations, positives, and a detailed HTML report.
@@ -254,7 +254,7 @@ async def asyncio(
     import httpx
 
     response = httpx.post(
-        'https://api.fala.ai/v1/analyze/auditoriaRisco',
+        'https://api01-falaai.action.tec.br/v1/analyze/auditoriaRisco',
         headers={'Authorization': 'Bearer fai_xxx'},
         json={
             'dialog': 'Speaker 1: [00:00:00.540 - 00:00:01.139] Hi, Alex.',
@@ -268,7 +268,7 @@ async def asyncio(
 
     **cURL:**
     ```bash
-    curl https://api.fala.ai/v1/analyze/auditoriaRisco \\
+    curl https://api01-falaai.action.tec.br/v1/analyze/auditoriaRisco \\
       -H 'Authorization: Bearer fai_xxx' \\
       -H 'Content-Type: application/json' \\
       -d '{

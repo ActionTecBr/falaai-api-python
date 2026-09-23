@@ -17,10 +17,10 @@ class ParticipantDiagnostic:
     Attributes:
         interlocutor (str): Exact speaker label from the dialog (e.g. 'Speaker 1') Example: Speaker 1.
         role (str): Role: agent | client | bot | agent_requester | agent_custodian Example: client.
-        name (None | str | Unset): Participant name if mentioned in the dialogue Example: Antônio.
+        name (None | str | Unset): Participant name if mentioned in the dialogue Example: AntÃ´nio.
         confidence (None | str | Unset): high | medium | low Example: high.
-        evidence (None | str | Unset): Exact verbatim quote supporting the role (no timestamps) Example: Tá quarenta
-            reais e setenta e um, Antônio..
+        evidence (None | str | Unset): Exact verbatim quote supporting the role (no timestamps) Example: TÃ¡ quarenta
+            reais e setenta e um, AntÃ´nio..
     """
 
     interlocutor: str

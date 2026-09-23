@@ -17,10 +17,10 @@ setup(
     license="MIT",
     project_urls={
         "Homepage": "https://falaai.action.tec.br/api",
-        "Repository": "https://github.com/ActionTecBr/falaai-api",
-        "Issues": "https://github.com/ActionTecBr/falaai-api/issues",
+    "Repository": "https://github.com/ActionTecBr/falaai-api-python",
+    "Issues": "https://github.com/ActionTecBr/falaai-api-python/issues",
     },
-    keywords=["falaai", "api", "sdk", "compliance", "call-audit", "speech-to-text", "transcription"],
+    keywords=["falaai", "api", "sdk", "call-center", "contact-center", "speech-to-text", "transcription", "conversation-intelligence", "sentiment-analysis", "compliance", "audit", "copc", "iso-18295", "lgpd", "omnichannel", "helpdesk", "chatbot", "whatsapp", "crm", "crm-integration"],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

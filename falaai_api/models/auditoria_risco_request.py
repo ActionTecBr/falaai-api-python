@@ -38,7 +38,7 @@ class AuditoriaRiscoRequest:
         call_direction (AuditoriaRiscoRequestCallDirectionType0 | None | Unset): Who originated the call. inbound=client
             called, outbound=company called. If omitted, LLM infers from context. Example: inbound.
         participants (list[Participant] | None | Unset): Explicit participant roles. If omitted, LLM infers from dialog
-            (Lei 17). When provided, used as ground truth — no inference. Example: [{'interlocutor': 'Interlocutor 1',
+            (Lei 17). When provided, used as ground truth â€” no inference. Example: [{'interlocutor': 'Interlocutor 1',
             'name': 'Antonio', 'role': 'client'}, {'interlocutor': 'Interlocutor 2', 'name': 'Maria', 'role': 'agent'}].
         response_format (str | Unset): Response format version. v1=legacy flat PT-BR, v2=structured EN-US blocks.
             Default: 'v2'. Example: v2.

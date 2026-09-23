@@ -17,7 +17,7 @@ T = TypeVar("T", bound="AuditoriaRiscoV2Response")
 class AuditoriaRiscoV2Response:
     """
     Attributes:
-        response (AuditoriaRiscoV2): Response V2 (build_public_response_v2) — blocos logicos EN-US. Fonte:
+        response (AuditoriaRiscoV2): Response V2 (build_public_response_v2) â€” blocos logicos EN-US. Fonte:
             response_builder.py.
     """
 

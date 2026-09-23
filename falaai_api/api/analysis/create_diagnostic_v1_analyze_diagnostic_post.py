@@ -65,7 +65,7 @@ def sync_detailed(
     client: AuthenticatedClient | Client,
     body: DiagnosticRequest,
 ) -> Response[DiagnosticResponse | HTTPValidationError]:
-    """ Analyze a call transcript — 5 parallel analyses
+    """ Analyze a call transcript â€” 5 parallel analyses
 
      Runs 5 independent analyses on a call transcript: dialogue summary, contact reason, identified
     action, label classification, and sentiment.
@@ -75,7 +75,7 @@ def sync_detailed(
     import httpx
 
     response = httpx.post(
-        'https://api.fala.ai/v1/analyze/diagnostic',
+        'https://api01-falaai.action.tec.br/v1/analyze/diagnostic',
         headers={'Authorization': 'Bearer fai_xxx'},
         json={
             'dialog': 'Speaker 1: [00:00:00.540 - 00:00:01.139] Hi, Alex.',
@@ -88,7 +88,7 @@ def sync_detailed(
 
     **cURL:**
     ```bash
-    curl https://api.fala.ai/v1/analyze/diagnostic \\
+    curl https://api01-falaai.action.tec.br/v1/analyze/diagnostic \\
       -H 'Authorization: Bearer fai_xxx' \\
       -H 'Content-Type: application/json' \\
       -d '{
@@ -125,7 +125,7 @@ def sync(
     client: AuthenticatedClient | Client,
     body: DiagnosticRequest,
 ) -> DiagnosticResponse | HTTPValidationError | None:
-    """ Analyze a call transcript — 5 parallel analyses
+    """ Analyze a call transcript â€” 5 parallel analyses
 
      Runs 5 independent analyses on a call transcript: dialogue summary, contact reason, identified
     action, label classification, and sentiment.
@@ -135,7 +135,7 @@ def sync(
     import httpx
 
     response = httpx.post(
-        'https://api.fala.ai/v1/analyze/diagnostic',
+        'https://api01-falaai.action.tec.br/v1/analyze/diagnostic',
         headers={'Authorization': 'Bearer fai_xxx'},
         json={
             'dialog': 'Speaker 1: [00:00:00.540 - 00:00:01.139] Hi, Alex.',
@@ -148,7 +148,7 @@ def sync(
 
     **cURL:**
     ```bash
-    curl https://api.fala.ai/v1/analyze/diagnostic \\
+    curl https://api01-falaai.action.tec.br/v1/analyze/diagnostic \\
       -H 'Authorization: Bearer fai_xxx' \\
       -H 'Content-Type: application/json' \\
       -d '{
@@ -180,7 +180,7 @@ async def asyncio_detailed(
     client: AuthenticatedClient | Client,
     body: DiagnosticRequest,
 ) -> Response[DiagnosticResponse | HTTPValidationError]:
-    """ Analyze a call transcript — 5 parallel analyses
+    """ Analyze a call transcript â€” 5 parallel analyses
 
      Runs 5 independent analyses on a call transcript: dialogue summary, contact reason, identified
     action, label classification, and sentiment.
@@ -190,7 +190,7 @@ async def asyncio_detailed(
     import httpx
 
     response = httpx.post(
-        'https://api.fala.ai/v1/analyze/diagnostic',
+        'https://api01-falaai.action.tec.br/v1/analyze/diagnostic',
         headers={'Authorization': 'Bearer fai_xxx'},
         json={
             'dialog': 'Speaker 1: [00:00:00.540 - 00:00:01.139] Hi, Alex.',
@@ -203,7 +203,7 @@ async def asyncio_detailed(
 
     **cURL:**
     ```bash
-    curl https://api.fala.ai/v1/analyze/diagnostic \\
+    curl https://api01-falaai.action.tec.br/v1/analyze/diagnostic \\
       -H 'Authorization: Bearer fai_xxx' \\
       -H 'Content-Type: application/json' \\
       -d '{
@@ -238,7 +238,7 @@ async def asyncio(
     client: AuthenticatedClient | Client,
     body: DiagnosticRequest,
 ) -> DiagnosticResponse | HTTPValidationError | None:
-    """ Analyze a call transcript — 5 parallel analyses
+    """ Analyze a call transcript â€” 5 parallel analyses
 
      Runs 5 independent analyses on a call transcript: dialogue summary, contact reason, identified
     action, label classification, and sentiment.
@@ -248,7 +248,7 @@ async def asyncio(
     import httpx
 
     response = httpx.post(
-        'https://api.fala.ai/v1/analyze/diagnostic',
+        'https://api01-falaai.action.tec.br/v1/analyze/diagnostic',
         headers={'Authorization': 'Bearer fai_xxx'},
         json={
             'dialog': 'Speaker 1: [00:00:00.540 - 00:00:01.139] Hi, Alex.',
@@ -261,7 +261,7 @@ async def asyncio(
 
     **cURL:**
     ```bash
-    curl https://api.fala.ai/v1/analyze/diagnostic \\
+    curl https://api01-falaai.action.tec.br/v1/analyze/diagnostic \\
       -H 'Authorization: Bearer fai_xxx' \\
       -H 'Content-Type: application/json' \\
       -d '{
