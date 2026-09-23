@@ -1,0 +1,32 @@
+__pycache__/
+build/
+dist/
+*.egg-info/
+.pytest_cache/
+
+# pyenv
+.python-version
+
+# Environments
+.env
+.venv
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# JetBrains
+.idea/
+
+/coverage.xml
+/.coverage
+
+# FalaAI
+*.bak
+tests/e2e/logs/
+
+# Sobras do openapi-generator
+git_push.sh
+.travis.yml
+.gitlab-ci.yml
