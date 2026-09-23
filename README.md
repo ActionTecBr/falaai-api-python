@@ -1,110 +1,103 @@
-# falaai-api
-A client library for accessing FalaAI API
+# FalaAI API - Python SDK
 
-## Usage
-First, create a client:
+[![version](https://img.shields.io/badge/version-1.21.47-blue)](https://pypi.org/project/falaai-api/)
+[![license](https://img.shields.io/badge/license-MIT-green)](https://github.com/ActionTecBr/falaai-api-python/blob/main/LICENSE)
+[![build](https://github.com/ActionTecBr/falaai-api-python/actions/workflows/ci.yml/badge.svg)](https://github.com/ActionTecBr/falaai-api-python/actions/workflows/ci.yml)
 
-```python
-from falaai_api import Client
+Official Python SDK for the **FalaAI API**.
 
-client = Client(base_url="https://api.example.com")
+## What is FalaAI API?
+
+FalaAI API turns conversations into auditable business intelligence, in three steps:
+
+1. **Transcribe** - audio (calls, voice notes, meetings) to text, with speaker separation.
+2. **Diagnose** - summary, reason, recommended action, topic and sentiment per conversation.
+3. **Audit compliance** - risk score and violations against **COPC CX** and **ISO 18295-1**.
+
+It works with phone calls, WhatsApp, Telegram, chat, email, PDF and images.
+Three REST endpoints, one API key, no setup.
+
+## Who it's for
+
+| Role | What they get |
+| --- | --- |
+| **Contact Center / Quality** | Audit 100% of conversations instead of a sample |
+| **Compliance / Legal** | Forensic, auditable evidence for audits and disputes |
+| **CX / Operations** | Risk score, sentiment and reason for every conversation |
+| **Developers** | One typed SDK, three REST endpoints, one API key |
+| **Data / BI** | Clean, typed JSON ready for your database or BI tool |
+
+## Install
+
+```bash
+pip install falaai-api
 ```
 
-If the endpoints you're going to hit require authentication, use `AuthenticatedClient` instead:
+## Quick start
 
 ```python
 from falaai_api import AuthenticatedClient
+from falaai_api.api.speech import create_transcription_v1_audio_transcriptions_post
+from falaai_api.models.body_create_transcription_v1_audio_transcriptions_post import (
+    BodyCreateTranscriptionV1AudioTranscriptionsPost,
+)
+from falaai_api.types import File
 
-client = AuthenticatedClient(base_url="https://api.example.com", token="SuperSecretToken")
-```
-
-Now call your endpoint and use your models:
-
-```python
-from falaai_api.models import MyDataModel
-from falaai_api.api.my_tag import get_my_data_model
-from falaai_api.types import Response
-
-with client as client:
-    my_data: MyDataModel = get_my_data_model.sync(client=client)
-    # or if you need more info (e.g. status_code)
-    response: Response[MyDataModel] = get_my_data_model.sync_detailed(client=client)
-```
-
-Or do the same thing with an async version:
-
-```python
-from falaai_api.models import MyDataModel
-from falaai_api.api.my_tag import get_my_data_model
-from falaai_api.types import Response
-
-async with client as client:
-    my_data: MyDataModel = await get_my_data_model.asyncio(client=client)
-    response: Response[MyDataModel] = await get_my_data_model.asyncio_detailed(client=client)
-```
-
-By default, when you're calling an HTTPS API it will attempt to verify that SSL is working correctly. Using certificate verification is highly recommended most of the time, but sometimes you may need to authenticate to a server (especially an internal server) using a custom certificate bundle.
-
-```python
 client = AuthenticatedClient(
-    base_url="https://internal_api.example.com",
-    token="SuperSecretToken",
-    verify_ssl="/path/to/certificate_bundle.pem",
-)
-```
-
-You can also disable certificate validation altogether, but beware that **this is a security risk**.
-
-```python
-client = AuthenticatedClient(base_url="https://internal_api.example.com", token="SuperSecretToken", verify_ssl=False)
-```
-
-Things to know:
-1. Every path/method combo becomes a Python module with four functions:
-    1. `sync`: Blocking request that returns parsed data (if successful) or `None`
-    1. `sync_detailed`: Blocking request that always returns a `Request`, optionally with `parsed` set if the request was successful.
-    1. `asyncio`: Like `sync` but async instead of blocking
-    1. `asyncio_detailed`: Like `sync_detailed` but async instead of blocking
-
-1. All path/query params, and bodies become method arguments.
-1. If your endpoint had any tags on it, the first tag will be used as a module name for the function (my_tag above)
-1. Any endpoint which did not have a tag will be in `falaai_api.api.default`
-
-## Advanced customizations
-
-There are more settings on the generated `Client` class which let you control more runtime behavior, check out the docstring on that class for more info. You can also customize the underlying `httpx.Client` or `httpx.AsyncClient` (depending on your use-case):
-
-```python
-from falaai_api import Client
-
-
-def log_request(request):
-    print(f"Request event hook: {request.method} {request.url} - Waiting for response")
-
-
-def log_response(response):
-    request = response.request
-    print(f"Response event hook: {request.method} {request.url} - Status {response.status_code}")
-
-
-client = Client(
-    base_url="https://api.example.com",
-    httpx_args={"event_hooks": {"request": [log_request], "response": [log_response]}},
+    base_url="https://api01-falaai.action.tec.br",
+    token="fai_xxxxxx",
 )
 
-# Or get the underlying httpx client to modify directly with client.get_httpx_client() or client.get_async_httpx_client()
+with open("call.mp3", "rb") as f:
+    response = create_transcription_v1_audio_transcriptions_post.sync_detailed(
+        client=client,
+        body=BodyCreateTranscriptionV1AudioTranscriptionsPost(
+            file=File(payload=f, file_name="call.mp3", mime_type="audio/mpeg"),
+            model="falaai-transcribe-1",
+            language="pt",
+        ),
+    )
+
+print(response.parsed.text)
 ```
 
-You can even set the httpx client directly, but beware that this will override any existing settings (e.g., base_url):
+## Use cases
 
-```python
-import httpx
-from falaai_api import Client
+- Call and voice-note **transcription** with speaker separation
+- **Contact center quality assurance (QA)** automation
+- **Compliance auditing** against **COPC CX** and **ISO 18295-1**
+- **Risk detection** - churn risk, legal threats, escalation
+- **WhatsApp, Telegram and chat** conversation analysis
+- **CRM and help desk** enrichment
+- **LGPD**-aware handling of customer conversations
 
-client = Client(
-    base_url="https://api.example.com",
-)
-# Note that base_url needs to be re-set, as would any shared cookies, headers, etc.
-client.set_httpx_client(httpx.Client(base_url="https://api.example.com", proxies="http://localhost:8030"))
-```
+## Where it fits
 
+Common Python stacks in contact center, CRM and help desk - if you build on any of these, the SDK drops in:
+
+Odoo - ERPNext / Frappe - Django CRMs - LangChain / LlamaIndex - Telethon
+
+> Product names are trademarks of their respective owners, listed as common stacks in this ecosystem. No partnership is implied.
+
+## Endpoints
+
+| Method | Path | Description |
+| --- | --- | --- |
+| `POST` | `/v1/audio/transcriptions` | Audio to text, with speaker separation |
+| `POST` | `/v1/analyze/diagnostic` | Conversation analysis - summary, reason, action, topic, sentiment |
+| `POST` | `/v1/analyze/auditoriaRisco` | Compliance audit - risk score and violations |
+
+All endpoints require `Authorization: Bearer fai_xxxxxx`.
+Full reference: <https://api01-falaai.action.tec.br/docs>
+
+## Links
+
+- **Product:** <https://falaai.action.tec.br/api>
+- **API reference:** <https://api01-falaai.action.tec.br/docs>
+- **Get an API key:** <https://falaai.action.tec.br/api/auth>
+- **Package (PyPI):** <https://pypi.org/project/falaai-api/>
+- **Source:** <https://github.com/ActionTecBr/falaai-api-python>
+
+## License
+
+MIT (c) 2026 Action Tec Br - see [LICENSE](LICENSE).
