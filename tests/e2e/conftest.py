@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 import pytest
-from falaai_api import Client, AuthenticatedClient
+from falaai_api import ApiClient, Configuration
 
 _ENV_FILE = Path(__file__).resolve().parents[3] / ".env.e2e"
 
@@ -27,14 +27,20 @@ KEY = _get("FALAAI_TEST_KEY")
 PROD = _get("FALAAI_PROD_URL")
 AUDIO = _get("FALAAI_E2E_AUDIO")
 
+def make_client(base_url, token=None):
+    cfg = Configuration(host=base_url)
+    if token:
+        cfg.access_token = token
+    return ApiClient(configuration=cfg)
+
 @pytest.fixture(scope="session")
 def base_url():
     return BASE
 
 @pytest.fixture(scope="session")
 def client(base_url):
-    return Client(base_url=base_url)
+    return make_client(base_url)
 
 @pytest.fixture(scope="session")
 def auth(base_url):
-    return AuthenticatedClient(base_url=base_url, token=KEY)
+    return make_client(base_url, KEY)

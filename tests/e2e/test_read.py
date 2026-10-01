@@ -1,16 +1,12 @@
-from falaai_api.api.health import health_check, health_check_head
-from falaai_api.api.version import get_version_api_version_get
-from falaai_api.api.usage import get_usage_log_v1_usage_log_get, get_usage_by_key_v1_usage_by_key_get
-from falaai_api.api.webhooks import list_webhooks_v1_webhooks_get
-from falaai_api.api.email_alerts import list_email_alerts_v1_email_alerts_get
+from falaai_api import HealthApi, VersionApi, UsageApi, WebhooksApi, EmailAlertsApi
 from tests.e2e.e2e_logger import log_test
 
 
 def test_health_get(client):
-    r = health_check.sync_detailed(client=client)
-    log_test("health_get", "GET", "/v1/health", None, r.parsed, f"HTTP {r.status_code}", r.status_code)
+    r = HealthApi(client).health_check_with_http_info()
+    log_test("health_get", "GET", "/v1/health", None, r.data, f"HTTP {r.status_code}", r.status_code)
     assert r.status_code == 200
-    p = r.parsed
+    p = r.data
     assert p.status == "ok"
     assert isinstance(p.version, str) and p.version
     assert isinstance(p.uptime_seconds, int) and p.uptime_seconds >= 0
@@ -27,20 +23,20 @@ def test_health_head(base_url):
 
 
 def test_version(client):
-    r = get_version_api_version_get.sync_detailed(client=client)
-    log_test("version", "GET", "/api/version", None, r.parsed, f"HTTP {r.status_code}", r.status_code)
+    r = VersionApi(client).get_version_api_version_get_with_http_info()
+    log_test("version", "GET", "/api/version", None, r.data, f"HTTP {r.status_code}", r.status_code)
     assert r.status_code == 200
-    p = r.parsed
+    p = r.data
     assert p.service == "FalaAI API"
     assert isinstance(p.version, str) and p.version
     assert isinstance(p.deploy_date, str) and p.deploy_date
 
 
 def test_usage_log(auth):
-    r = get_usage_log_v1_usage_log_get.sync_detailed(client=auth, page=1, limit=5)
-    log_test("usage_log", "GET", "/v1/usage/log", {"page": 1, "limit": 5}, r.parsed, f"HTTP {r.status_code}", r.status_code)
+    r = UsageApi(auth).get_usage_log_v1_usage_log_get_with_http_info(page=1, limit=5)
+    log_test("usage_log", "GET", "/v1/usage/log", {"page": 1, "limit": 5}, r.data, f"HTTP {r.status_code}", r.status_code)
     assert r.status_code == 200
-    p = r.parsed
+    p = r.data
     assert p.page == 1 and p.limit == 5
     assert isinstance(p.data, list)
     for it in p.data:
@@ -53,10 +49,10 @@ def test_usage_log(auth):
 
 
 def test_usage_by_key(auth):
-    r = get_usage_by_key_v1_usage_by_key_get.sync_detailed(client=auth)
-    log_test("usage_by_key", "GET", "/v1/usage/by-key", None, r.parsed, f"HTTP {r.status_code}", r.status_code)
+    r = UsageApi(auth).get_usage_by_key_v1_usage_by_key_get_with_http_info()
+    log_test("usage_by_key", "GET", "/v1/usage/by-key", None, r.data, f"HTTP {r.status_code}", r.status_code)
     assert r.status_code == 200
-    for it in r.parsed:
+    for it in r.data:
         assert isinstance(it.key_id, str) and it.key_id
         assert isinstance(it.key_name, str)
         assert isinstance(it.total_credits, int)
@@ -64,10 +60,10 @@ def test_usage_by_key(auth):
 
 
 def test_webhooks_list(auth):
-    r = list_webhooks_v1_webhooks_get.sync_detailed(client=auth, page=1, limit=5)
-    log_test("webhooks_list", "GET", "/v1/webhooks", {"page": 1, "limit": 5}, r.parsed, f"HTTP {r.status_code}", r.status_code)
+    r = WebhooksApi(auth).list_webhooks_v1_webhooks_get_with_http_info(page=1, limit=5)
+    log_test("webhooks_list", "GET", "/v1/webhooks", {"page": 1, "limit": 5}, r.data, f"HTTP {r.status_code}", r.status_code)
     assert r.status_code == 200
-    p = r.parsed
+    p = r.data
     assert p.page == 1 and p.limit == 5
     for w in p.data:
         assert isinstance(w.id, str) and w.id
@@ -84,10 +80,10 @@ def test_webhooks_list(auth):
 
 
 def test_email_alerts_list(auth):
-    r = list_email_alerts_v1_email_alerts_get.sync_detailed(client=auth, page=1, limit=5)
-    log_test("email_alerts_list", "GET", "/v1/email-alerts", {"page": 1, "limit": 5}, r.parsed, f"HTTP {r.status_code}", r.status_code)
+    r = EmailAlertsApi(auth).list_email_alerts_v1_email_alerts_get_with_http_info(page=1, limit=5)
+    log_test("email_alerts_list", "GET", "/v1/email-alerts", {"page": 1, "limit": 5}, r.data, f"HTTP {r.status_code}", r.status_code)
     assert r.status_code == 200
-    p = r.parsed
+    p = r.data
     assert p.page == 1 and p.limit == 5
     for a in p.data:
         assert isinstance(a.id, str) and a.id

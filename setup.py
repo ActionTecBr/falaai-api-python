@@ -7,7 +7,7 @@ long_description = (here / "README.md").read_text(encoding="utf-8")
 
 setup(
     name="falaai-api",
-    version="1.21.48",
+    version="1.21.49",
     description="Official Python SDK for the FalaAI API - AI-powered call transcription, diagnosis and compliance auditing.",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -27,8 +27,8 @@ setup(
         "Operating System :: OS Independent",
         "Intended Audience :: Developers",
     ],
-    packages=find_packages(),
+    packages=find_packages(exclude=["tests", "tests.*"]),
     python_requires=">=3.11, <4",
-    install_requires=["httpx >= 0.23.1, < 0.29.0", "attrs >= 22.2.0"],
+    install_requires=["urllib3 >= 1.25.3, < 3.0.0", "python-dateutil >= 2.8.2", "pydantic >= 2", "typing-extensions >= 4.7.1"],
     package_data={"falaai_api": ["py.typed"]},
 )

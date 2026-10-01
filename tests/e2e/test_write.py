@@ -1,11 +1,4 @@
-from falaai_api.api.webhooks import (
-    list_webhooks_v1_webhooks_get, create_webhook_v1_webhooks_post,
-    update_webhook_v1_webhooks_webhook_id_put, delete_webhook_v1_webhooks_webhook_id_delete,
-)
-from falaai_api.api.email_alerts import (
-    list_email_alerts_v1_email_alerts_get, create_email_alert_v1_email_alerts_post,
-    update_email_alert_v1_email_alerts_alert_id_put, delete_email_alert_v1_email_alerts_alert_id_delete,
-)
+from falaai_api import WebhooksApi, EmailAlertsApi
 from falaai_api.models.create_webhook_request import CreateWebhookRequest
 from falaai_api.models.update_webhook_request import UpdateWebhookRequest
 from falaai_api.models.create_email_alert_request import CreateEmailAlertRequest
@@ -48,46 +41,46 @@ def _assert_alert_full(a, aid, name, active):
 
 
 def _cleanup_webhooks(auth):
-    r = list_webhooks_v1_webhooks_get.sync(client=auth, page=1, limit=100)
+    r = WebhooksApi(auth).list_webhooks_v1_webhooks_get(page=1, limit=100)
     for w in (r.data if r else []):
         if w.url == WURL:
-            delete_webhook_v1_webhooks_webhook_id_delete.sync_detailed(client=auth, webhook_id=w.id)
+            WebhooksApi(auth).delete_webhook_v1_webhooks_webhook_id_delete_with_http_info(webhook_id=w.id)
 
 
 def _cleanup_alerts(auth):
-    r = list_email_alerts_v1_email_alerts_get.sync(client=auth, page=1, limit=100)
+    r = EmailAlertsApi(auth).list_email_alerts_v1_email_alerts_get(page=1, limit=100)
     for a in (r.data if r else []):
         if a.email == AEMAIL:
-            delete_email_alert_v1_email_alerts_alert_id_delete.sync_detailed(client=auth, alert_id=a.id)
+            EmailAlertsApi(auth).delete_email_alert_v1_email_alerts_alert_id_delete_with_http_info(alert_id=a.id)
 
 
 def test_webhooks_crud(auth):
     _cleanup_webhooks(auth)
 
     body = CreateWebhookRequest(name=WNAME, url=WURL, events=EVENTS_W)
-    c = create_webhook_v1_webhooks_post.sync_detailed(client=auth, body=body)
-    log_test("webhooks_create", "POST", "/v1/webhooks", body, c.parsed, f"HTTP {c.status_code}", c.status_code)
-    assert c.status_code == 200, c.content[:300]
-    wid = c.parsed.id
-    _assert_webhook_full(c.parsed, wid, WNAME, True)
+    c = WebhooksApi(auth).create_webhook_v1_webhooks_post_with_http_info(create_webhook_request=body)
+    log_test("webhooks_create", "POST", "/v1/webhooks", body, c.data, f"HTTP {c.status_code}", c.status_code)
+    assert c.status_code == 200, c.raw_data[:300]
+    wid = c.data.id
+    _assert_webhook_full(c.data, wid, WNAME, True)
 
     ub = UpdateWebhookRequest(name=WNAME + " (updated)", active=False)
-    u = update_webhook_v1_webhooks_webhook_id_put.sync_detailed(client=auth, webhook_id=wid, body=ub)
-    log_test("webhooks_update", "PUT", f"/v1/webhooks/{wid}", ub, u.parsed, f"HTTP {u.status_code}", u.status_code)
-    assert u.status_code == 200, u.content[:300]
-    assert u.parsed.message == "updated"
+    u = WebhooksApi(auth).update_webhook_v1_webhooks_webhook_id_put_with_http_info(webhook_id=wid, update_webhook_request=ub)
+    log_test("webhooks_update", "PUT", f"/v1/webhooks/{wid}", ub, u.data, f"HTTP {u.status_code}", u.status_code)
+    assert u.status_code == 200, u.raw_data[:300]
+    assert u.data.message == "updated"
 
-    r = list_webhooks_v1_webhooks_get.sync(client=auth, page=1, limit=100)
+    r = WebhooksApi(auth).list_webhooks_v1_webhooks_get(page=1, limit=100)
     row = next((w for w in r.data if w.id == wid), None)
     assert row is not None
     _assert_webhook_full(row, wid, WNAME + " (updated)", False)
 
-    d = delete_webhook_v1_webhooks_webhook_id_delete.sync_detailed(client=auth, webhook_id=wid)
-    log_test("webhooks_delete", "DELETE", f"/v1/webhooks/{wid}", None, d.parsed, f"HTTP {d.status_code}", d.status_code)
-    assert d.status_code == 200, d.content[:300]
-    assert d.parsed.message == "deleted"
+    d = WebhooksApi(auth).delete_webhook_v1_webhooks_webhook_id_delete_with_http_info(webhook_id=wid)
+    log_test("webhooks_delete", "DELETE", f"/v1/webhooks/{wid}", None, d.data, f"HTTP {d.status_code}", d.status_code)
+    assert d.status_code == 200, d.raw_data[:300]
+    assert d.data.message == "deleted"
 
-    r2 = list_webhooks_v1_webhooks_get.sync(client=auth, page=1, limit=100)
+    r2 = WebhooksApi(auth).list_webhooks_v1_webhooks_get(page=1, limit=100)
     assert next((w for w in r2.data if w.id == wid), None) is None
 
 
@@ -95,27 +88,27 @@ def test_email_alerts_crud(auth):
     _cleanup_alerts(auth)
 
     body = CreateEmailAlertRequest(name=ANAME, email=AEMAIL, events=EVENTS_A)
-    c = create_email_alert_v1_email_alerts_post.sync_detailed(client=auth, body=body)
-    log_test("email_alerts_create", "POST", "/v1/email-alerts", body, c.parsed, f"HTTP {c.status_code}", c.status_code)
-    assert c.status_code == 200, c.content[:300]
-    aid = c.parsed.id
-    _assert_alert_full(c.parsed, aid, ANAME, True)
+    c = EmailAlertsApi(auth).create_email_alert_v1_email_alerts_post_with_http_info(create_email_alert_request=body)
+    log_test("email_alerts_create", "POST", "/v1/email-alerts", body, c.data, f"HTTP {c.status_code}", c.status_code)
+    assert c.status_code == 200, c.raw_data[:300]
+    aid = c.data.id
+    _assert_alert_full(c.data, aid, ANAME, True)
 
     ub = UpdateEmailAlertRequest(name=ANAME + " (updated)", active=False)
-    u = update_email_alert_v1_email_alerts_alert_id_put.sync_detailed(client=auth, alert_id=aid, body=ub)
-    log_test("email_alerts_update", "PUT", f"/v1/email-alerts/{aid}", ub, u.parsed, f"HTTP {u.status_code}", u.status_code)
-    assert u.status_code == 200, u.content[:300]
-    assert u.parsed.message == "updated"
+    u = EmailAlertsApi(auth).update_email_alert_v1_email_alerts_alert_id_put_with_http_info(alert_id=aid, update_email_alert_request=ub)
+    log_test("email_alerts_update", "PUT", f"/v1/email-alerts/{aid}", ub, u.data, f"HTTP {u.status_code}", u.status_code)
+    assert u.status_code == 200, u.raw_data[:300]
+    assert u.data.message == "updated"
 
-    r = list_email_alerts_v1_email_alerts_get.sync(client=auth, page=1, limit=100)
+    r = EmailAlertsApi(auth).list_email_alerts_v1_email_alerts_get(page=1, limit=100)
     row = next((a for a in r.data if a.id == aid), None)
     assert row is not None
     _assert_alert_full(row, aid, ANAME + " (updated)", False)
 
-    d = delete_email_alert_v1_email_alerts_alert_id_delete.sync_detailed(client=auth, alert_id=aid)
-    log_test("email_alerts_delete", "DELETE", f"/v1/email-alerts/{aid}", None, d.parsed, f"HTTP {d.status_code}", d.status_code)
-    assert d.status_code == 200, d.content[:300]
-    assert d.parsed.message == "deleted"
+    d = EmailAlertsApi(auth).delete_email_alert_v1_email_alerts_alert_id_delete_with_http_info(alert_id=aid)
+    log_test("email_alerts_delete", "DELETE", f"/v1/email-alerts/{aid}", None, d.data, f"HTTP {d.status_code}", d.status_code)
+    assert d.status_code == 200, d.raw_data[:300]
+    assert d.data.message == "deleted"
 
-    r2 = list_email_alerts_v1_email_alerts_get.sync(client=auth, page=1, limit=100)
+    r2 = EmailAlertsApi(auth).list_email_alerts_v1_email_alerts_get(page=1, limit=100)
     assert next((a for a in r2.data if a.id == aid), None) is None

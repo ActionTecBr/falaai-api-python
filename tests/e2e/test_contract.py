@@ -3,36 +3,37 @@ e que os exemplos de uso (fonte unica) existem para os endpoints de IA (sincroni
 import json
 from pathlib import Path
 
-from falaai_api.api import speech, analysis, usage, webhooks, email_alerts, health, version
+from falaai_api import SpeechApi, AnalysisApi, UsageApi, WebhooksApi, EmailAlertsApi, HealthApi, VersionApi
 
 _API_ROOT = Path(__file__).resolve().parents[4]  # sdks/python/tests/e2e -> FalaAI_api
 _SPEC = _API_ROOT / "openapi.json"
-_EXAMPLES = _API_ROOT / "app" / "static" / "examples"
+_EXAMPLES = _API_ROOT / "sdks" / "python" / "examples"
 
-# (metodo, rota) -> funcao do SDK gerado
+# (metodo, rota) -> (classe Api, metodo do SDK gerado)
 OP_TO_SDK = {
-    ("POST", "/v1/audio/transcriptions"): (speech, "create_transcription_v1_audio_transcriptions_post"),
-    ("POST", "/v1/analyze/diagnostic"): (analysis, "create_diagnostic_v1_analyze_diagnostic_post"),
-    ("POST", "/v1/analyze/auditoriaRisco"): (analysis, "create_auditoria_risco_v_1_analyze_auditoria_risco_post"),
-    ("GET", "/v1/usage/log"): (usage, "get_usage_log_v1_usage_log_get"),
-    ("GET", "/v1/usage/by-key"): (usage, "get_usage_by_key_v1_usage_by_key_get"),
-    ("GET", "/v1/webhooks"): (webhooks, "list_webhooks_v1_webhooks_get"),
-    ("POST", "/v1/webhooks"): (webhooks, "create_webhook_v1_webhooks_post"),
-    ("PUT", "/v1/webhooks/{webhook_id}"): (webhooks, "update_webhook_v1_webhooks_webhook_id_put"),
-    ("DELETE", "/v1/webhooks/{webhook_id}"): (webhooks, "delete_webhook_v1_webhooks_webhook_id_delete"),
-    ("GET", "/v1/email-alerts"): (email_alerts, "list_email_alerts_v1_email_alerts_get"),
-    ("POST", "/v1/email-alerts"): (email_alerts, "create_email_alert_v1_email_alerts_post"),
-    ("PUT", "/v1/email-alerts/{alert_id}"): (email_alerts, "update_email_alert_v1_email_alerts_alert_id_put"),
-    ("DELETE", "/v1/email-alerts/{alert_id}"): (email_alerts, "delete_email_alert_v1_email_alerts_alert_id_delete"),
-    ("GET", "/api/version"): (version, "get_version_api_version_get"),
-    ("GET", "/v1/health"): (health, "health_check"),
-    ("HEAD", "/v1/health"): (health, "health_check_head"),
+    ("POST", "/v1/audio/transcriptions"): (SpeechApi, "create_transcription_v1_audio_transcriptions_post"),
+    ("POST", "/v1/analyze/diagnostic"): (AnalysisApi, "create_diagnostic_v1_analyze_diagnostic_post"),
+    ("POST", "/v1/analyze/riskAudit"): (AnalysisApi, "create_risk_audit_v1_analyze_risk_audit_post"),
+    ("GET", "/v1/usage/log"): (UsageApi, "get_usage_log_v1_usage_log_get"),
+    ("GET", "/v1/usage/by-key"): (UsageApi, "get_usage_by_key_v1_usage_by_key_get"),
+    ("GET", "/v1/webhooks"): (WebhooksApi, "list_webhooks_v1_webhooks_get"),
+    ("POST", "/v1/webhooks"): (WebhooksApi, "create_webhook_v1_webhooks_post"),
+    ("PUT", "/v1/webhooks/{webhook_id}"): (WebhooksApi, "update_webhook_v1_webhooks_webhook_id_put"),
+    ("DELETE", "/v1/webhooks/{webhook_id}"): (WebhooksApi, "delete_webhook_v1_webhooks_webhook_id_delete"),
+    ("GET", "/v1/email-alerts"): (EmailAlertsApi, "list_email_alerts_v1_email_alerts_get"),
+    ("POST", "/v1/email-alerts"): (EmailAlertsApi, "create_email_alert_v1_email_alerts_post"),
+    ("PUT", "/v1/email-alerts/{alert_id}"): (EmailAlertsApi, "update_email_alert_v1_email_alerts_alert_id_put"),
+    ("DELETE", "/v1/email-alerts/{alert_id}"): (EmailAlertsApi, "delete_email_alert_v1_email_alerts_alert_id_delete"),
+    ("GET", "/api/version"): (VersionApi, "get_version_api_version_get"),
+    ("GET", "/v1/health"): (HealthApi, "health_check"),
+    ("HEAD", "/v1/health"): (HealthApi, "health_check_head"),
 }
 
 _EXAMPLES_AI = {
-    "transcribe": ["curl/transcribe.sh", "python/transcribe.py", "nodejs/transcribe.js"],
-    "diagnostic": ["curl/diagnostic.sh", "python/diagnostic.py", "nodejs/diagnostic.js"],
-    "auditoria_risco": ["curl/auditoria_risco.sh", "python/auditoria_risco.py", "nodejs/auditoria_risco.js"],
+    "transcribe": ["transcribe.py"],
+    "diagnostic": ["diagnose.py"],
+    "auditoria_risco": ["audit.py"],
+    "health": ["health.py"],
 }
 
 
@@ -49,9 +50,9 @@ def test_openapi_tem_exatamente_as_operacoes_esperadas():
 
 def test_sdk_cobre_100pc_das_operacoes():
     faltando = []
-    for (method, path), (mod, fn) in OP_TO_SDK.items():
-        if not hasattr(mod, fn):
-            faltando.append(f"{method} {path} -> {mod.__name__}.{fn}")
+    for (method, path), (cls, fn) in OP_TO_SDK.items():
+        if not hasattr(cls, fn):
+            faltando.append(f"{method} {path} -> {cls.__name__}.{fn}")
     assert not faltando, "SDK nao cobre: " + "; ".join(faltando)
 
 
