@@ -1,6 +1,6 @@
 # sdks/python/examples - exemplos python (canonicos)
 
-@version 1.4.0 | criado: 28/09/2026 17:21 | atualizado: 03/10/2026 00:03
+@version 1.4.0 | criado: 28/09/2026 17:21 | atualizado: 03/10/2026 00:17
 
 ## O que e
 Os 4 exemplos python (.py) dos endpoints da API, EXPORTADOS DA LANDING PAGE (fonte unica
@@ -31,7 +31,7 @@ _generate_python_examples.mjs (prefixo _ = ferramenta, nao exemplo)
 ## Relatorio da ultima execucao
 | Data | Modo | Resultado |
 |------|------|-----------|
-| 03/10/2026 00:03 | verificacao (--check) | OK - 4 exemplos python 100% conforme a landing. |
+| 03/10/2026 00:17 | verificacao (--check) | OK - 4 exemplos python 100% conforme a landing. |
 
 | Arquivo | Endpoint | Status | Gerado em |
 |---------|----------|--------|-----------|
@@ -42,6 +42,6 @@ _generate_python_examples.mjs (prefixo _ = ferramenta, nao exemplo)
 
 ## Datas
 - Criacao:     28/09/2026 17:21
-- Atualizacao: 03/10/2026 00:03
+- Atualizacao: 03/10/2026 00:17
 
 Gerado automaticamente por _generate_python_examples.mjs - NAO edite a mao.
