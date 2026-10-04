@@ -65,6 +65,12 @@ docs/WebhookEvent.md
 docs/WebhookItem.md
 docs/WebhookListResponse.md
 docs/WebhooksApi.md
+docs/WhatsappApi.md
+docs/WhatsappConversation.md
+docs/WhatsappConversationsResponse.md
+docs/WhatsappMeta.md
+docs/WhatsappSpeaker.md
+docs/WhatsappUsage.md
 falaai_api/__init__.py
 falaai_api/api/__init__.py
 falaai_api/api/analysis_api.py
@@ -74,6 +80,7 @@ falaai_api/api/speech_api.py
 falaai_api/api/usage_api.py
 falaai_api/api/version_api.py
 falaai_api/api/webhooks_api.py
+falaai_api/api/whatsapp_api.py
 falaai_api/api_client.py
 falaai_api/api_response.py
 falaai_api/configuration.py
@@ -133,6 +140,11 @@ falaai_api/models/version_response.py
 falaai_api/models/webhook_event.py
 falaai_api/models/webhook_item.py
 falaai_api/models/webhook_list_response.py
+falaai_api/models/whatsapp_conversation.py
+falaai_api/models/whatsapp_conversations_response.py
+falaai_api/models/whatsapp_meta.py
+falaai_api/models/whatsapp_speaker.py
+falaai_api/models/whatsapp_usage.py
 falaai_api/py.typed
 falaai_api/rest.py
 git_push.sh
@@ -203,4 +215,10 @@ test/test_webhook_event.py
 test/test_webhook_item.py
 test/test_webhook_list_response.py
 test/test_webhooks_api.py
+test/test_whatsapp_api.py
+test/test_whatsapp_conversation.py
+test/test_whatsapp_conversations_response.py
+test/test_whatsapp_meta.py
+test/test_whatsapp_speaker.py
+test/test_whatsapp_usage.py
 tox.ini

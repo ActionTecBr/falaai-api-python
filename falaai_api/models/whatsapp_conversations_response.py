@@ -19,23 +19,24 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from falaai_api.models.diagnostic_analysis_map import DiagnosticAnalysisMap
-from falaai_api.models.diagnostic_usage import DiagnosticUsage
+from falaai_api.models.whatsapp_conversation import WhatsappConversation
+from falaai_api.models.whatsapp_meta import WhatsappMeta
+from falaai_api.models.whatsapp_usage import WhatsappUsage
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 
-class DiagnosticResponse(BaseModel):
+class WhatsappConversationsResponse(BaseModel):
     """
-    DiagnosticResponse
+    WhatsappConversationsResponse
     """ # noqa: E501
-    id: StrictStr = Field(description="Unique analysis identifier. Prefix 'di-' + UUID")
-    response_language: StrictStr = Field(description="Language used in the response. E.g.: 'pt-BR', 'en-US', 'es-ES'")
-    object: StrictStr = Field(description="Object type. Always 'analysis'")
-    analysis: DiagnosticAnalysisMap = Field(description="The 6 conversation analyses (5 + participants)")
-    usage: DiagnosticUsage = Field(description="Usage and processing information")
-    client_reference_id: Optional[StrictStr] = Field(default=None, description="Client-supplied ID echoed verbatim (if provided in request)")
-    __properties: ClassVar[List[str]] = ["id", "response_language", "object", "analysis", "usage", "client_reference_id"]
+    id: StrictStr = Field(description="Unique identifier. Prefix 'wc-' + UUID")
+    object: StrictStr = Field(description="Object type. Always 'conversations'")
+    usage: WhatsappUsage = Field(description="Usage and processing information")
+    conversations: List[WhatsappConversation] = Field(description="Segmented conversations")
+    client_reference_id: Optional[StrictStr] = Field(default=None, description="Client-supplied ID echoed verbatim (if provided)")
+    meta: WhatsappMeta = Field(description="Segmentation parameters and counts")
+    __properties: ClassVar[List[str]] = ["id", "object", "usage", "conversations", "client_reference_id", "meta"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -55,7 +56,7 @@ class DiagnosticResponse(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of DiagnosticResponse from a JSON string"""
+        """Create an instance of WhatsappConversationsResponse from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -76,17 +77,23 @@ class DiagnosticResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of analysis
-        if self.analysis:
-            _dict['analysis'] = self.analysis.to_dict()
         # override the default output from pydantic by calling `to_dict()` of usage
         if self.usage:
             _dict['usage'] = self.usage.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of each item in conversations (list)
+        _items = []
+        if self.conversations:
+            for _item_conversations in self.conversations:
+                _items.append(_item_conversations.to_dict() if _item_conversations is not None else None)
+            _dict['conversations'] = _items
+        # override the default output from pydantic by calling `to_dict()` of meta
+        if self.meta:
+            _dict['meta'] = self.meta.to_dict()
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of DiagnosticResponse from a dict"""
+        """Create an instance of WhatsappConversationsResponse from a dict"""
         if obj is None:
             return None
 
@@ -95,11 +102,11 @@ class DiagnosticResponse(BaseModel):
 
         _obj = cls.model_validate({
             "id": obj.get("id"),
-            "response_language": obj.get("response_language"),
             "object": obj.get("object"),
-            "analysis": DiagnosticAnalysisMap.from_dict(obj["analysis"]) if obj.get("analysis") is not None else None,
-            "usage": DiagnosticUsage.from_dict(obj["usage"]) if obj.get("usage") is not None else None,
-            "client_reference_id": obj.get("client_reference_id")
+            "usage": WhatsappUsage.from_dict(obj["usage"]) if obj.get("usage") is not None else None,
+            "conversations": [WhatsappConversation.from_dict(_item) for _item in obj["conversations"]] if obj.get("conversations") is not None else None,
+            "client_reference_id": obj.get("client_reference_id"),
+            "meta": WhatsappMeta.from_dict(obj["meta"]) if obj.get("meta") is not None else None
         })
         return _obj
 

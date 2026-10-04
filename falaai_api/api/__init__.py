@@ -8,4 +8,5 @@ from falaai_api.api.speech_api import SpeechApi
 from falaai_api.api.usage_api import UsageApi
 from falaai_api.api.version_api import VersionApi
 from falaai_api.api.webhooks_api import WebhooksApi
+from falaai_api.api.whatsapp_api import WhatsappApi
 

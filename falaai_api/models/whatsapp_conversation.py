@@ -19,20 +19,24 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Union
+from falaai_api.models.whatsapp_speaker import WhatsappSpeaker
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 
-class AudioEvent(BaseModel):
+class WhatsappConversation(BaseModel):
     """
-    AudioEvent
+    WhatsappConversation
     """ # noqa: E501
-    event: StrictStr = Field(description="Type of identified audio event. Ex: [riso], [suspiro], [pausa], [tosse]")
-    start_s: Union[StrictFloat, StrictInt] = Field(description="Start time of audio event in seconds")
-    end_s: Union[StrictFloat, StrictInt] = Field(description="End time of audio event in seconds")
-    duration_s: Union[StrictFloat, StrictInt] = Field(description="Event duration in seconds")
-    formatted_timestamp: StrictStr = Field(description="Formatted timestamp HH:MM:SS.mmm of event start")
-    __properties: ClassVar[List[str]] = ["event", "start_s", "end_s", "duration_s", "formatted_timestamp"]
+    conversation_id: StrictStr = Field(description="Conversation identifier in the batch")
+    first_at: StrictStr = Field(description="Real start (wall-clock, ISO)")
+    last_at: StrictStr = Field(description="Real end (wall-clock, ISO)")
+    duration_seconds: Union[StrictFloat, StrictInt] = Field(description="(last - first) + last turn duration")
+    speakers: List[WhatsappSpeaker] = Field(description="Speakers of THIS conversation (dynamic)")
+    dialog: StrictStr = Field(description="Lines 'Speaker N: [HH:MM:SS.mmm - HH:MM:SS.mmm] text' (real offset)")
+    message_count: StrictInt = Field(description="Number of messages")
+    characters: StrictInt = Field(description="Total characters of the conversation")
+    __properties: ClassVar[List[str]] = ["conversation_id", "first_at", "last_at", "duration_seconds", "speakers", "dialog", "message_count", "characters"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -52,7 +56,7 @@ class AudioEvent(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of AudioEvent from a JSON string"""
+        """Create an instance of WhatsappConversation from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -73,11 +77,17 @@ class AudioEvent(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in speakers (list)
+        _items = []
+        if self.speakers:
+            for _item_speakers in self.speakers:
+                _items.append(_item_speakers.to_dict() if _item_speakers is not None else None)
+            _dict['speakers'] = _items
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of AudioEvent from a dict"""
+        """Create an instance of WhatsappConversation from a dict"""
         if obj is None:
             return None
 
@@ -85,11 +95,14 @@ class AudioEvent(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "event": obj.get("event"),
-            "start_s": obj.get("start_s"),
-            "end_s": obj.get("end_s"),
-            "duration_s": obj.get("duration_s"),
-            "formatted_timestamp": obj.get("formatted_timestamp")
+            "conversation_id": obj.get("conversation_id"),
+            "first_at": obj.get("first_at"),
+            "last_at": obj.get("last_at"),
+            "duration_seconds": obj.get("duration_seconds"),
+            "speakers": [WhatsappSpeaker.from_dict(_item) for _item in obj["speakers"]] if obj.get("speakers") is not None else None,
+            "dialog": obj.get("dialog"),
+            "message_count": obj.get("message_count"),
+            "characters": obj.get("characters")
         })
         return _obj
 

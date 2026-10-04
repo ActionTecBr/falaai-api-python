@@ -1,6 +1,6 @@
 # sdks/python/examples - exemplos python (canonicos)
 
-@version 1.4.0 | criado: 28/09/2026 17:21 | atualizado: 03/10/2026 00:17
+@version 1.4.0 | criado: 28/09/2026 17:21 | atualizado: 04/10/2026 02:35
 
 ## O que e
 Os 4 exemplos python (.py) dos endpoints da API, EXPORTADOS DA LANDING PAGE (fonte unica
@@ -31,17 +31,18 @@ _generate_python_examples.mjs (prefixo _ = ferramenta, nao exemplo)
 ## Relatorio da ultima execucao
 | Data | Modo | Resultado |
 |------|------|-----------|
-| 03/10/2026 00:17 | verificacao (--check) | OK - 4 exemplos python 100% conforme a landing. |
+| 04/10/2026 02:35 | verificacao (--check) | OK - 5 exemplos python 100% conforme a landing. |
 
 | Arquivo | Endpoint | Status | Gerado em |
 |---------|----------|--------|-----------|
-| health.py | GET  /v1/health | ok | 02/10/2026 23:50 |
-| transcribe.py | POST /v1/audio/transcriptions | ok | 02/10/2026 23:50 |
-| diagnose.py | POST /v1/analyze/diagnostic | ok | 02/10/2026 23:50 |
-| audit.py | POST /v1/analyze/riskAudit | ok | 02/10/2026 23:50 |
+| health.py | GET  /v1/health | ok | 04/10/2026 02:19 |
+| transcribe.py | POST /v1/audio/transcriptions | ok | 04/10/2026 02:19 |
+| diagnose.py | POST /v1/analyze/diagnostic | ok | 04/10/2026 02:19 |
+| audit.py | POST /v1/analyze/riskAudit | ok | 04/10/2026 02:19 |
+| whatsapp.py | whatsapp.py | ok | 04/10/2026 02:19 |
 
 ## Datas
 - Criacao:     28/09/2026 17:21
-- Atualizacao: 03/10/2026 00:17
+- Atualizacao: 04/10/2026 02:35
 
 Gerado automaticamente por _generate_python_examples.mjs - NAO edite a mao.
