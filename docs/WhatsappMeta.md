@@ -14,13 +14,14 @@ Name | Type | Description | Notes
 **end** | **str** | Window end (ISO) | 
 **gap_minutes** | **float** | Gap used to split conversations | 
 **min_messages** | **int** | Minimum messages per conversation | 
-**chars_per_minute** | **float** | Chars per minute used to estimate duration | 
 **turns** | **int** | Total parsed turns | 
 **system_lines** | **int** | System lines ignored | 
 **conversations_total** | **int** | Conversations before window filter | 
 **conversations_in_window** | **int** | Conversations overlapping the window | 
 **monologues_dropped** | **int** | Single-speaker conversations dropped | 
 **conversations_selected** | **int** | Final conversations returned | 
+**voice_note** | **bool** | Voice/video medias were transcribed | 
+**expression** | **bool** | Visual expressions were described | 
 
 ## Example
 

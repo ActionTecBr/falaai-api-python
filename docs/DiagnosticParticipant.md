@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **interlocutor** | **str** | Exact speaker label from the dialog (e.g. &#39;Speaker 1&#39;) | 
 **name** | **str** | Participant name (optional) | [optional] 
-**role** | **str** | agent | client | bot | 
+**role** | **str** | agent | client | bot (optional — omit/empty when unknown) | [optional] 
 
 ## Example
 

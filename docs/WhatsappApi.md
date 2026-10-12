@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 
 # **extract_conversations_v1_whatsapp_extract_conversations_post**
-> WhatsappConversationsResponse extract_conversations_v1_whatsapp_extract_conversations_post(file, start, end, timezone, date_format, gap_minutes=gap_minutes, min_messages=min_messages, chars_per_minute=chars_per_minute, client_reference_id=client_reference_id)
+> WhatsappConversationsResponse extract_conversations_v1_whatsapp_extract_conversations_post(file, start, end, timezone, date_format, gap_minutes=gap_minutes, min_messages=min_messages, voice_note=voice_note, expression=expression, client_reference_id=client_reference_id)
 
 Extract and segment WhatsApp conversations from an export
 
@@ -49,12 +49,13 @@ with falaai_api.ApiClient(configuration) as api_client:
     date_format = 'date_format_example' # str | 
     gap_minutes = 720 # float |  (optional) (default to 720)
     min_messages = 2 # int |  (optional) (default to 2)
-    chars_per_minute = 800 # float |  (optional) (default to 800)
+    voice_note = True # bool | Transcrever mensagens de voz/video gravadas na hora? (optional) (default to True)
+    expression = True # bool | Descrever expressoes visuais (figurinha/GIF/imagem)? (optional) (default to True)
     client_reference_id = 'client_reference_id_example' # str |  (optional)
 
     try:
         # Extract and segment WhatsApp conversations from an export
-        api_response = api_instance.extract_conversations_v1_whatsapp_extract_conversations_post(file, start, end, timezone, date_format, gap_minutes=gap_minutes, min_messages=min_messages, chars_per_minute=chars_per_minute, client_reference_id=client_reference_id)
+        api_response = api_instance.extract_conversations_v1_whatsapp_extract_conversations_post(file, start, end, timezone, date_format, gap_minutes=gap_minutes, min_messages=min_messages, voice_note=voice_note, expression=expression, client_reference_id=client_reference_id)
         print("The response of WhatsappApi->extract_conversations_v1_whatsapp_extract_conversations_post:\n")
         pprint(api_response)
     except Exception as e:
@@ -75,7 +76,8 @@ Name | Type | Description  | Notes
  **date_format** | **str**|  | 
  **gap_minutes** | **float**|  | [optional] [default to 720]
  **min_messages** | **int**|  | [optional] [default to 2]
- **chars_per_minute** | **float**|  | [optional] [default to 800]
+ **voice_note** | **bool**| Transcrever mensagens de voz/video gravadas na hora? | [optional] [default to True]
+ **expression** | **bool**| Descrever expressoes visuais (figurinha/GIF/imagem)? | [optional] [default to True]
  **client_reference_id** | **str**|  | [optional] 
 
 ### Return type

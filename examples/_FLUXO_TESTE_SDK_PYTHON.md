@@ -1,5 +1,5 @@
 # FLUXO DE TESTES DA SDK PYTHON (`falaai-api`)
-@version 1.0.0 | 30/09/2026 | MANUAL — nao e regenerado pelo exportador de exemplos
+@version 1.1.0 | 12/10/2026 | MANUAL — nao e regenerado pelo exportador de exemplos
 SDK: `D:\ProjetoFalaAI\FalaAI\FalaAI_api\sdks\python\` (pacote PyPI `falaai-api`, import `falaai_api`) · Docker da linguagem: imagem oficial `python:3.13`
 Regra de fundo: `.opencode/rules/macro/modulos/falaai-api/sdk-fonte-unica.md` (tests/e2e = MANUAL)
 
@@ -18,14 +18,14 @@ Regra de fundo: `.opencode/rules/macro/modulos/falaai-api/sdk-fonte-unica.md` (t
 | 8 | `falaai_api/` (gerado) | `D:\ProjetoFalaAI\FalaAI\FalaAI_api\sdks\python\falaai_api\` | O SDK (openapi-generator): `ApiClient`/`Configuration`/`*Api` + `models/` — entra por `PYTHONPATH` (nao instala) |
 | 9 | `demo_callcenter.mp3` | `D:\ProjetoFalaAI\FalaAI\FalaAI_api\sdks\python\tests\e2e\demo_callcenter.mp3` | audio do teste (1.3 MB) |
 | 10 | `logs\python_<endpoint>_<ts>_tst.json` (+ `.html`) | `D:\ProjetoFalaAI\FalaAI\FalaAI_api\sdks\python\tests\e2e\logs\` | LOGS gerados pelo runner (**limpa os antigos a cada rodada**) |
-| 11 | `VERSION.txt` | `D:\ProjetoFalaAI\FalaAI\FalaAI_api\VERSION.txt` | versao da API que o health devolve (`api_v1.21.49`) — SEM BOM |
+| 11 | `VERSION.txt` | `D:\ProjetoFalaAI\FalaAI\FalaAI_api\VERSION.txt` | versao da API que o health devolve (`api_v1.21.54`) — SEM BOM |
 | 12 | `_FLUXO_TESTE_SDK_PYTHON.md` (este doc) | `D:\ProjetoFalaAI\FalaAI\FalaAI_api\sdks\python\examples\_FLUXO_TESTE_SDK_PYTHON.md` | este doc |
 
 ## Requisitos do dev (inviolaveis)
 - R-A: roda em Docker DA LINGUAGEM (`python:3.13`)
 - R-B: roda os 4 exemplos GERADOS (`health/transcribe/diagnose/audit.py`) — nunca reescreve
 - R-C: LOG = request (codigo do exemplo) + response (o que o SDK devolveu) + `.html` da auditoria
-- R-D: chave `fai_668e6474b83dd24540860d9ab9df0b738f7171a0f5bd8179` hardcoded no runner (local-only)
+- R-D: **sem chave hardcoded** no runner — a chave vem do parâmetro `-ApiKey` (o §1.10 do `COMANDOS_PUBLICACAO.md` injeta). **NUNCA** gravar chave `fai_` em arquivo.
 - R-E: **PASSO 0 antes de tudo** — exemplos sincronizados com a FONTE UNICA
 
 ## Fluxo (com os nomes reais dos scripts)

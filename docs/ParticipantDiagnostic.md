@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **interlocutor** | **str** | Exact speaker label from the dialog (e.g. &#39;Speaker 1&#39;) | 
-**role** | **str** | Role: agent | client | bot | agent_requester | agent_custodian | 
+**role** | **str** | Role: agent | client | bot | agent_requester | agent_custodian (null when not informed/inferred) | [optional] 
 **name** | **str** | Participant name if mentioned in the dialogue | [optional] 
 **confidence** | **str** | high | medium | low | [optional] 
 **evidence** | **str** | Exact verbatim quote supporting the role (no timestamps) | [optional] 

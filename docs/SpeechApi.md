@@ -44,8 +44,8 @@ with falaai_api.ApiClient(configuration) as api_client:
     api_instance = falaai_api.SpeechApi(api_client)
     file = None # bytes | 
     model = 'falaai-transcribe-1' # str |  (optional) (default to 'falaai-transcribe-1')
-    language = 'pt' # str |  (optional) (default to 'pt')
-    client_reference_id = 'client_reference_id_example' # str | Optional client-supplied ID echoed verbatim in the response. Use to correlate/sync with your system. Accepted charset: [A-Za-z0-9._:-]. Not idempotency. (optional)
+    language = 'language_example' # str |  (optional)
+    client_reference_id = 'client_reference_id_example' # str | Optional client-supplied ID echoed verbatim in the response. Use to correlate/sync with your system. Accepted charset: [A-Za-z0-9 _/:.-], max 60 chars. Not idempotency. (optional)
 
     try:
         # Transcribe audio to text
@@ -65,8 +65,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **file** | **bytes**|  | 
  **model** | **str**|  | [optional] [default to &#39;falaai-transcribe-1&#39;]
- **language** | **str**|  | [optional] [default to &#39;pt&#39;]
- **client_reference_id** | **str**| Optional client-supplied ID echoed verbatim in the response. Use to correlate/sync with your system. Accepted charset: [A-Za-z0-9._:-]. Not idempotency. | [optional] 
+ **language** | **str**|  | [optional] 
+ **client_reference_id** | **str**| Optional client-supplied ID echoed verbatim in the response. Use to correlate/sync with your system. Accepted charset: [A-Za-z0-9 _/:.-], max 60 chars. Not idempotency. | [optional] 
 
 ### Return type
 

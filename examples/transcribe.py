@@ -15,7 +15,7 @@ with open("demo_callcenter.mp3", "rb") as fh:
         file=("demo_callcenter.mp3", fh.read()),
         model="falaai-transcribe-1",
         language="pt",
-        client_reference_id="call_202609271408",
+        client_reference_id="20260927140800000-aud",
     )
 
 print(transcription.model_dump_json(indent=2))
