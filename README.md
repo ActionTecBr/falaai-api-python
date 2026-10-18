@@ -53,6 +53,8 @@ FALAAI_API_KEY=fai_xxxxxxxx
 
 ### 3. Transcribe a call (audio -> text)
 
+> No audio file? See **[audio help](https://falaai.action.tec.br/api/audio-help)** for accepted formats and limits.
+
 ```python
 import os
 from falaai_api import ApiClient, Configuration, SpeechApi
@@ -102,16 +104,17 @@ config.access_token = os.environ["FALAAI_API_KEY"]
 analysis = AnalysisApi(ApiClient(configuration=config))
 
 transcript = "Good morning, how can I help? I need to cancel my subscription."
+dialog = "Speaker 1: [00:00:00.100 - 00:00:03.100] Good morning, how can I help?\nSpeaker 2: [00:00:03.100 - 00:00:06.200] I need to cancel my subscription."
 
 # 5 analyses in one call: summary, reason, action, topic, sentiment
 diagnostic = analysis.create_diagnostic_v1_analyze_diagnostic_post(
     diagnostic_request=DiagnosticRequest(text=transcript, language="pt-BR", duration_seconds=81.46)
 )
 
-# Compliance risk score + violations + auditable report
+# Compliance risk score + violations + auditable report (Risk Audit requires a diarized 'dialog', not 'text')
 audit = analysis.create_risk_audit_v1_analyze_risk_audit_post(
     risk_audit_request=RiskAuditRequest(
-        text=transcript, language="pt-BR", response_language="pt-BR", duration_seconds=81.46
+        dialog=dialog, language="pt-BR", response_language="pt-BR", duration_seconds=81.46
     )
 )
 ```
@@ -158,6 +161,8 @@ FalaAI is **language-independent** - integrate at **any point** of your pipeline
 
 > These are **integration examples**, not certified native integrations. Any platform can integrate through **REST / cURL** - the standard, language-independent path. Native ingestion connectors are on the roadmap.
 
+**This SDK's language (Python):** FalaAI is language-independent; this package targets **Python** backends (your target platform does not need to be built in Python).
+
 ## BYOT - Bring Your Own Transcription
 
 Already have speech-to-text (Whisper, Deepgram, AssemblyAI, your own)? **Skip Transcription** and send the text straight to **Diagnostic** and/or **Risk Audit**. You only pay for what you use.
@@ -180,7 +185,7 @@ Already have speech-to-text (Whisper, Deepgram, AssemblyAI, your own)? **Skip Tr
 
 ## Examples
 
-Runnable examples in [`examples/`](./examples): `health.py`, `transcribe.py`, `diagnose.py`, `audit.py`, `whatsapp.py`.
+Runnable examples in [`examples/`](https://github.com/ActionTecBr/falaai-api-python/tree/main/examples): `health.py`, `transcribe.py`, `diagnose.py`, `audit.py`, `whatsapp.py`.
 
 ## Authentication
 
@@ -214,7 +219,7 @@ except ApiException as e:
 | Requirement | Version |
 |---|---|
 | Python | 3.11+ |
-| API | v1.21.54 |
+| API | v1.21.67 |
 
 ## Documentation
 
@@ -227,7 +232,7 @@ except ApiException as e:
 
 ## Versioning
 
-Semantic versioning; the SDK version tracks the API version (`1.21.54`). See [CHANGELOG.md](CHANGELOG.md) and [Releases](https://github.com/ActionTecBr/falaai-api-python/releases).
+Semantic versioning; the SDK version tracks the API version (`1.21.67`). See [CHANGELOG.md](CHANGELOG.md) and [Releases](https://github.com/ActionTecBr/falaai-api-python/releases).
 
 ## Security
 

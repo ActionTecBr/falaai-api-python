@@ -22,6 +22,7 @@ Name | Type | Description | Notes
 **conversations_selected** | **int** | Final conversations returned | 
 **voice_note** | **bool** | Voice/video medias were transcribed | 
 **expression** | **bool** | Visual expressions were described | 
+**windows** | **int** | Explicit windows used (0 &#x3D; simple start/end range) | 
 
 ## Example
 

@@ -7,7 +7,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **risk_origin** | **str** | Risk origin | [optional] 
 **has_zero_tolerance_violation** | **bool** | Has zero-tolerance violation | [optional] 
-**deterministic_validator_changes** | **List[object]** | Deterministic validator changes | [optional] [default to []]
 
 ## Example
 

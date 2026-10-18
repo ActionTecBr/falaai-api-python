@@ -7,7 +7,7 @@ long_description = (here / "README.md").read_text(encoding="utf-8")
 
 setup(
     name="falaai-api",
-    version="1.21.54",
+    version="1.21.67",
     description="Official Python SDK for the FalaAI API - AI-powered call transcription, diagnosis and compliance auditing.",
     long_description=long_description,
     long_description_content_type="text/markdown",

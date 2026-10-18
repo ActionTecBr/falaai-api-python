@@ -1,9 +1,9 @@
 # sdks/python/examples - exemplos python (canonicos)
 
-@version 1.4.0 | criado: 28/09/2026 17:21 | atualizado: 12/10/2026 17:09
+@version 1.4.0 | criado: 15/10/2026 18:44 | atualizado: 18/10/2026 11:17
 
 ## O que e
-Os 4 exemplos python (.py) dos endpoints da API, EXPORTADOS DA LANDING PAGE (fonte unica
+Os 7 exemplos python (.py) - 4 endpoints + 3 variantes do WhatsApp - EXPORTADOS DA LANDING PAGE (fonte unica
 de verdade). Nunca editados a mao.
 
 ## Fonte unica de verdade
@@ -31,18 +31,20 @@ _generate_python_examples.mjs (prefixo _ = ferramenta, nao exemplo)
 ## Relatorio da ultima execucao
 | Data | Modo | Resultado |
 |------|------|-----------|
-| 12/10/2026 17:09 | verificacao (--check) | OK - 5 exemplos python 100% conforme a landing. |
+| 18/10/2026 11:17 | exportacao | OK - 7 exemplos python exportados da landing. |
 
 | Arquivo | Endpoint | Status | Gerado em |
 |---------|----------|--------|-----------|
-| health.py | GET  /v1/health | ok | 12/10/2026 15:08 |
-| transcribe.py | POST /v1/audio/transcriptions | ok | 12/10/2026 15:08 |
-| diagnose.py | POST /v1/analyze/diagnostic | ok | 12/10/2026 15:08 |
-| audit.py | POST /v1/analyze/riskAudit | ok | 12/10/2026 15:08 |
-| whatsapp.py | whatsapp.py | ok | 12/10/2026 15:08 |
+| health.py | GET  /v1/health | exportado (406 chars) | 18/10/2026 11:17 |
+| transcribe.py | POST /v1/audio/transcriptions | exportado (823 chars) | 18/10/2026 11:17 |
+| diagnose.py | POST /v1/analyze/diagnostic | exportado (5002 chars) | 18/10/2026 11:17 |
+| audit.py | POST /v1/analyze/riskAudit | exportado (3784 chars) | 18/10/2026 11:17 |
+| whatsapp_preview.py | whatsapp.py | exportado (1085 chars) | 18/10/2026 11:17 |
+| whatsapp_periodo.py | whatsapp.py | exportado (1104 chars) | 18/10/2026 11:17 |
+| whatsapp_janelas.py | whatsapp.py | exportado (1186 chars) | 18/10/2026 11:17 |
 
 ## Datas
-- Criacao:     28/09/2026 17:21
-- Atualizacao: 12/10/2026 17:09
+- Criacao:     15/10/2026 18:44
+- Atualizacao: 18/10/2026 11:17
 
 Gerado automaticamente por _generate_python_examples.mjs - NAO edite a mao.

@@ -7,11 +7,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **label** | **str** | Human-readable verdict | [optional] 
 **level_code** | **str** | Classification level code | [optional] 
-**color** | **str** | Level color | [optional] 
-**icon** | **str** | Level icon | [optional] 
 **risk_matrix** | **Dict[str, object]** | Risk matrix | [optional] 
 **applied_actions** | [**List[RiskAuditAppliedActionV2]**](RiskAuditAppliedActionV2.md) | Applied actions | [optional] [default to []]
-**decision_details** | **object** | Decision details | [optional] 
 
 ## Example
 

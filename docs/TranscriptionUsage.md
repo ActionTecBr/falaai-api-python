@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **audio_seconds** | **float** | Actual audio duration processed in seconds | 
-**credits_consumed** | **int** | Number of credits consumed in this request | 
+**credits_consumed** | **float** | Number of credits consumed in this request | 
 **processing_ms** | **int** | Total processing time in milliseconds | 
 
 ## Example

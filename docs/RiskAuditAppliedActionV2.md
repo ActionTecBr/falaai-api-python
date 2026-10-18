@@ -9,8 +9,6 @@ Name | Type | Description | Notes
 **label** | **str** | Action label | 
 **description** | **str** | Action description | 
 **priority** | **str** | CRITICO/ALTO/MEDIO/BAIXO | 
-**color** | **str** | Color | [optional] [default to '']
-**icon** | **str** | Icon | [optional] [default to '']
 **condition** | **str** | Condition | [optional] 
 **reason** | **str** | Reason | [optional] [default to '']
 

@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**conversation_id** | **str** | Conversation identifier in the batch | 
+**conversation_id** | **str** | Stable conversation id: yyyymmddhhmm-&lt;first speaker&gt;[-xN for &gt;2 speakers] | 
 **first_at** | **str** | Real start (wall-clock, ISO) | 
 **last_at** | **str** | Real end (wall-clock, ISO) | 
 **duration_seconds** | **float** | (last - first) + last turn duration | 

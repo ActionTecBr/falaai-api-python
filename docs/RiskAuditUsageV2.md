@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **characters** | **int** | Characters analyzed | 
-**credits_consumed** | **int** | Credits consumed | 
+**credits_consumed** | **float** | Credits consumed | 
 **processing_ms** | **int** | Processing time (ms) | 
 
 ## Example

@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **characters** | **int** | Total characters analyzed | 
-**credits_consumed** | **int** | Credits consumed: max(ceil(chars/500)*3, 3) * 5 | 
+**credits_consumed** | **float** | Credits consumed: per character, round(max(characters, 500) * 0.03, 2) | 
 **processing_ms** | **int** | Total processing time in milliseconds | 
 
 ## Example
